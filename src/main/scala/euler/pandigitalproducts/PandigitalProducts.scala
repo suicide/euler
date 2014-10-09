@@ -33,8 +33,10 @@ object PandigitalProducts extends App {
     x <- 1 to 1000
     y <- 1 to 10000
     if isPandigitalProduct(x, y)
-  } yield x.toLong * y.toLong
-
+  } yield {
+    println(s"$x * $y = ${x * y}")
+    x.toLong * y.toLong
+  }
   println(products.toSet.sum)
 
 }
