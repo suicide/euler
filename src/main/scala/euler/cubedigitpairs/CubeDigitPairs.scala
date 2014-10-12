@@ -12,7 +12,7 @@ object CubeDigitPairs extends App {
   case class Digit(value: Int) {
     def canDisplay(digit: Digit): Boolean = {
 
-      val sixNine = digit.value.equals(6) || digit.value.equals(9)
+      def sixNine = digit.value.equals(6) || digit.value.equals(9)
       value match {
         case 6 => sixNine
         case 9 => sixNine
@@ -61,4 +61,23 @@ object CubeDigitPairs extends App {
 
 
   println(validDices.toSet.size)
+
+  // quick hack
+  def expandDiceValue(dice: Dice): Dice = {
+    val six = Digit(6)
+    val nine = Digit(9)
+
+    if (dice.digits.contains(six)) {
+      return Dice(dice.digits + nine)
+    } else if (dice.digits.contains(nine)) {
+      return Dice(dice.digits + six)
+    }
+
+    dice
+
+  }
+
+  println(validDices.map( d => {
+    (expandDiceValue(d._1), expandDiceValue(d._2))
+  }).toSet.size)
 }
